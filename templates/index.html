@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Gesture Recognition</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: aquamarine;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #logo {
+            width: 100px;
+            padding-top: 3%;
+        }
+
+        #video_feed {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            display: none;
+        }
+
+        #helmet_text {
+            font-size: 50px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        #start_button {
+            font-size: 16px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        #content {
+            text-align: center;
+        }
+    </style>
+    <script>
+        function startRecognition() {
+            document.getElementById('content').style.display = 'none';
+            const videoFeed = document.getElementById('video_feed');
+            videoFeed.style.display = 'block';
+            videoFeed.src = '/video_feed';
+        }
+
+        // When the window is closed, ensure the webcam stops streaming
+        window.onbeforeunload = function() {
+            const videoFeed = document.getElementById('video_feed');
+            videoFeed.src = ''; // Clear the source to stop the stream
+        }
+
+        function resetUI() {
+            document.getElementById('content').style.display = 'block';
+            const videoFeed = document.getElementById('video_feed');
+            videoFeed.style.display = 'none';
+            videoFeed.src = '';
+        }
+    </script>
+</head>
+<body>
+    <div id="content">
+        <img id="logo" src="static\open-hand_image.png" alt="Hand_Logo">
+        <h1 id="helmet_text">Hand Gesture Recognition</h1>
+        <button id="start_button" onclick="startRecognition()">Start Recognition</button>
+    </div>
+    
+    <img id="video_feed" src="" alt="Video Feed" onerror="resetUI()">
+</body>
+</html>
